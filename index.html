@@ -6,7 +6,84 @@
 <meta name="theme-color" content="#09090f">
 <meta name="description" content="DevSprint - Free online developer tools for formatting code, counting text, testing HTML and CSS, and validating JSON.">
 <title>DevSprint — Developer Toolkit</title>
+/* DevSprint Professional Theme Upgrade */
+:root {
+--bg: #0b1020;
+--panel: #141c30;
+--border: #2b3855;
+--purple: #8b5cf6;
+--blue: #38bdf8;
+--text: #f1f5f9;
+--muted: #a6b3ca;
+}
 
+body {
+background: var(--bg);
+color: var(--text);
+font-family: Inter, system-ui, sans-serif;
+}
+
+header {
+background: rgba(11, 16, 32, 0.94);
+border-bottom: 1px solid var(--border);
+}
+
+.card,
+.tool-card,
+.tool-panel,
+.tool-section {
+border-radius: 16px;
+transition: border-color .2s ease, transform .2s ease;
+}
+
+.card:hover,
+.tool-card:hover {
+border-color: var(--purple);
+transform: translateY(-3px);
+}
+
+button {
+transition: background .2s ease, transform .2s ease;
+}
+
+button:active {
+transform: scale(.98);
+}
+
+textarea,
+select,
+input {
+background: #0b1222;
+color: var(--text);
+border: 1px solid var(--border);
+border-radius: 10px;
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+outline: 2px solid var(--purple);
+outline-offset: 1px;
+}
+
+h1, h2, h3 {
+letter-spacing: -.4px;
+}
+
+@media (max-width: 600px) {
+body {
+padding: 14px;
+}
+
+.card,
+.tool-card {
+padding: 18px;
+}
+
+button {
+min-height: 42px;
+}
+}
 <style>
 :root {
   --bg: #09090f;
