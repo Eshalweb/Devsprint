@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b12">
+<meta name="description" content="DevSprint: free browser-based tools for web developers.">
+<title>DevSprint — Developer Toolkit</title>
+
+<style>
+:root{
+  --bg:#0b0b12;
+  --panel:#13131f;
+  --panel2:#1b1b2b;
+  --border:#303047;
+  --text:#f5f3ff;
+  --muted:#a5a3bd;
+  --purple:#a78bfa;
+  --green:#79e7b4;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  line-height:1.6;
+}
+button,textarea,select{font:inherit}
+button{cursor:pointer}
+header{
+  position:sticky;top:0;z-index:10;
+  background:#0b0b12ed;border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+nav{
+  max-width:1100px;margin:auto;padding:15px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-size:24px;font-weight:850;letter-spacing:-1px}
+.logo span{color:var(--purple)}
+.badge{
+  color:var(--green);background:#13261e;border:1px solid #315943;
+  padding:5px 10px;border-radius:20px;font-size:11px;
+}
+main{width:min(1050px,92%);margin:auto}
+.hero{text-align:center;padding:60px 0 35px}
+.eyebrow{
+  display:inline-block;padding:5px 12px;border-radius:30px;
+  border:1px solid #40345e;color:#d4c6ff;background:#191329;
+  font-size:12px;
+}
+h1{
+  font-size:clamp(38px,8vw,66px);line-height:1.1;
+  letter-spacing:-2px;margin:22px 0 15px;
+}
+.gradient{
+  color:transparent;
+  background:linear-gradient(100deg,#c8b7ff,#9778ff,#7cdeff);
+  background-clip:text;
+}
+.hero p{max-width:600px;margin:auto;color:var(--muted)}
+.stats{
+  display:flex;gap:9px;justify-content:center;flex-wrap:wrap;
+  margin-top:24px;
+}
+.stat{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:9px;padding:7px 12px;font-size:12px;
+}
+.section-head{margin:30px 0 14px}
+.section-head h2{margin:0;font-size:22px}
+.section-head p{color:var(--muted);font-size:13px;margin:3px 0}
+.tools{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+}
+.tool{
+  color:var(--text);text-align:left;background:var(--panel);
+  border:1px solid var(--border);border-radius:14px;padding:15px 12px;
+  transition:.2s;
+}
+.tool:hover,.tool.active{
+  border-color:var(--purple);background:#1b172b;transform:translateY(-2px);
+}
+.tool-icon{
+  display:grid;place-items:center;width:40px;height:40px;
+  border-radius:11px;background:#2a2142;font-size:20px;margin-bottom:11px;
+}
+.tool strong{display:block;font-size:13px}
+.tool small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.workspace{
+  margin:22px 0 45px;border:1px solid var(--border);
+  border-radius:15px;background:var(--panel);overflow:hidden;
+}
+.workspace-head{
+  padding:15px 17px;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);
+}
+.workspace-head h2{font-size:18px;margin:0}
+.workspace-head p{font-size:12px;color:var(--muted);margin:3px 0 0}
+.workspace-body{padding:17px}
+label{display:block;font-size:12px;color:#ded9f0;margin:12px 0 7px}
+textarea,select{
+  width:100%;color:var(--text);background:#0a0a12;
+  border:1px solid var(--border);border-radius:9px;padding:12px;
+}
+textarea{
+  min-height:160px;resize:vertical;
+  font:13px/1.6 ui-monospace,Consolas,monospace;
+  tab-size:2;
+}
+select{margin-bottom:7px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{
+  padding:9px 13px;border:1px solid var(--border);
+  border-radius:8px;background:var(--panel2);color:var(--text);
+  font-size:12px;font-weight:650;
+}
+.btn.primary{background:var(--purple);color:#170e2b;border-color:var(--purple)}
+.btn:hover{filter:brightness(1.12)}
+.help{font-size:11px;color:var(--muted)}
+.preview{
+  width:100%;height:280px;background:white;
+  border:1px solid var(--border);border-radius:9px;
+}
+.hidden{display:none!important}
+footer{
+  border-top:1px solid var(--border);padding:24px 15px;
+  text-align:center;color:var(--muted);font-size:12px;
+}
+footer strong{color:var(--purple)}
+@media(max-width:700px){
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{padding-top:42px}
+  .workspace-body{padding:12px}
+  h1{letter-spacing:-1px}
+}
+@media(max-width:350px){
+  .logo{font-size:20px}
+  .tool{padding:11px 9px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav>
+    <div class="logo">Dev<span>Sprint</span>.</div>
+    <span class="badge">● FREE TOOLKIT</span>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="eyebrow">✦ YOUR DEVELOPER WORKSPACE</span>
+    <h1>Less busywork.<br><span class="gradient">More building.</span></h1>
+    <p>Simple tools for everyday development. Format code, create responsive CSS, test your projects and validate JSON — all in one place.</p>
+    <div class="stats">
+      <span class="stat">✦ 4 Developer Tools</span>
+      <span class="stat">⚡ Instant Results</span>
+      <span class="stat">◈ Free to Use</span>
+    </div>
+  </section>
+
+  <section class="section-head">
+    <h2>Your workspace</h2>
+    <p>Choose a tool and get started.</p>
+  </section>
+
+  <section class="tools">
+    <button class="tool active" data-tool="formatter">
+      <span class="tool-icon">⌘</span>
+      <strong>Code Formatter</strong>
+      <small>Format HTML, CSS and JavaScript</small>
+    </button>
+    <button class="tool" data-tool="responsive">
+      <span class="tool-icon">▣</span>
+      <strong>Responsive Helper</strong>
+      <small>Generate mobile-friendly CSS</small>
+    </button>
+    <button class="tool" data-tool="playground">
+      <span class="tool-icon">▷</span>
+      <strong>Live Playground</strong>
+      <small>Write code and preview it</small>
+    </button>
+    <button class="tool" data-tool="json">
+      <span class="tool-icon">{ }</span>
+      <strong>JSON Validator</strong>
+      <small>Format JSON and find errors</small>
+    </button>
+  </section>
+
+  <section class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h2 id="title">Code Formatter</h2>
+        <p id="subtitle">Make your code easier to read.</p>
+      </div>
+      <span class="badge">READY</span>
+    </div>
+
+    <div class="workspace-body">
+
+      <section id="formatterPanel">
+        <label for="language">Choose language</label>
+        <select id="language">
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="js">JavaScript</option>
+        </select>
+        <label for="codeInput">Paste your code</label>
+        <textarea id="codeInput" spellcheck="false" placeholder="Paste code here..."></textarea>
+        <div class="actions">
+          <button class="btn primary" id="formatBtn">Format Code</button>
+          <button class="btn" id="copyFormat">Copy Output</button>
+          <button class="btn" id="clearFormat">Clear</button>
+        </div>
+        <p id="formatStatus" class="help" aria-live="polite">Code is processed in your browser.</p>
+        <label for="formatOutput">Formatted result</label>
+        <textarea id="formatOutput" spellcheck="false" placeholder="Your result appears here..."></textarea>
+      </section>
+
+      <section id="responsivePanel" class="hidden">
+        <label for="layoutType">Choose a template</label>
+        <select id="layoutType">
+          <option value="grid">Responsive Card Grid</option>
+          <option value="flex">Flexible Layout</option>
+          <option value="container">Responsive Container</option>
+          <option value="text">Responsive Typography</option>
+          <option value="image">Responsive Images</option>
+        </select>
+        <label for="responsiveOutput">Generated CSS</label>
+        <textarea id="responsiveOutput" readonly spellcheck="false"></textarea>
+        <div class="actions">
+          <button class="btn primary" id="generateCSS">Generate CSS</button>
+          <button class="btn" id="copyCSS">Copy CSS</button>
+        </div>
+        <p id="cssStatus" class="help">Copy the CSS into your project.</p>
+      </section>
+
+      <section id="playgroundPanel" class="hidden">
+        <label for="playHTML">HTML</label>
+        <textarea id="playHTML" spellcheck="false"><h1>Hello, DevSprint!</h1>
+<p>Build something amazing.</p>
+<button>Click me</button></textarea>
+
+        <label for="playCSS">CSS</label>
+        <textarea id="playCSS" spellcheck="false">body {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  color: #242039;
+}
+h1 { color: #7254d8; }
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #7254d8;
+  color: white;
+}</textarea>
+
+        <label for="playJS">JavaScript</label>
+        <textarea id="playJS" spellcheck="false">document.querySelector("button")
+  .addEventListener("click", () => {
+    alert("It works!");
+  });</textarea>
+
+        <div class="actions">
+          <button class="btn primary" id="runCode">▶ Run Preview</button>
+        </div>
+        <p class="help">Preview runs in an isolated frame. Only test code you trust.</p>
+        <label>Live preview</label>
+        <iframe id="preview" class="preview" title="Code preview" sandbox="allow-scripts"></iframe>
+      </section>
+
+      <section id="jsonPanel" class="hidden">
+        <label for="jsonInput">Paste JSON</label>
+        <textarea id="jsonInput" spellcheck="false" placeholder='{"name":"DevSprint","free":true}'></textarea>
+        <div class="actions">
+          <button class="btn primary" id="validateJSON">Format &amp; Validate</button>
+          <button class="btn" id="copyJSON">Copy Result</button>
+          <button class="btn" id="clearJSON">Clear</button>
+        </div>
+        <p id="jsonStatus" class="help" aria-live="polite">Ready to validate JSON.</p>
+        <label for="jsonOutput">Formatted JSON</label>
+        <textarea id="jsonOutput" spellcheck="false" readonly placeholder="Your result appears here..."></textarea>
+      </section>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>DevSprint.</strong> — Built for developers, one sprint at a time.
+  <p>Free browser-based tools · No account required</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const details = {
+  formatter:["Code Formatter","Make your code easier to read."],
+  responsive:["Responsive Helper","Generate CSS for responsive layouts."],
+  playground:["Live Code Playground","Write code and preview your ideas."],
+  json:["JSON Validator","Format JSON and check for errors."]
+};
+
+document.querySelectorAll(".tool").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tool").forEach(item =>
+      item.classList.remove("active")
+    );
+    button.classList.add("active");
+    const name = button.dataset.tool;
+    $("title").textContent = details[name][0];
+    $("subtitle").textContent = details[name][1];
+
+    ["formatter","responsive","playground","json"].forEach(item => {
+      $(item+"Panel").classList.toggle("hidden",item!==name);
+    });
+  });
+});
+
+// Basic formatter for common HTML and CSS code.
+function formatHTML(source) {
+  const tokens = source.match(/<!--[\s\S]*?-->|<![^>]*>|<\/?[^>]+>|[^<]+/g)||[];
+  const voidTags=/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
+  let depth=0;
+  const result=[];
+
+  tokens.forEach(token=>{
+    const t=token.trim();
+    if(!t)return;
+    if(/^<\//.test(t))depth=Math.max(0,depth-1);
+    result.push("  ".repeat(depth)+t);
+    const match=t.match(/^<([a-z][\w-]*)\b[^>]*>$/i);
+    if(match&&!/^<\//.test(t)&&!voidTags.test(match[1])&&
+       !/\/>$/.test(t)&&!t.includes("</"))depth++;
+  });
+  return result.join("\n");
+}
+
+function formatCSS(source) {
+  return source
+    .replace(/\s*\{\s*/g," {\n  ")
+    .replace(/\s*;\s*/g,";\n  ")
+    .replace(/\s*:\s*/g,": ")
+    .replace(/\s*\}\s*/g,"\n}\n")
+    .split("\n")
+    .map(line=>line.trim())
+    .filter(Boolean)
+    .join("\n");
+}
+
+$("formatBtn").addEventListener("click",()=>{
+  const source=$("codeInput").value;
+  if(!source.trim()){
+    $("formatStatus").textContent="Please paste code first.";
+    return;
+  }
+  const lang=$("language").value;
+  let result=source.trimEnd();
+  if(lang==="html")result=formatHTML(source);
+  if(lang==="css")result=formatCSS(source);
+  if(lang==="js"){
+    result=source.split("\n").map(line=>line.trimEnd()).join("\n").trim();
+  }
+  $("formatOutput").value=result;
+  $("formatStatus").textContent=lang==="js"
+    ?"Whitespace cleaned; JavaScript syntax was not rewritten."
+    :"Basic formatting complete. Check the result before using it.";
+});
+
+async function copyText(value,status){
+  if(!value){
+    status.textContent="Nothing to copy yet.";
+    return;
+  }
+  try{
+    await navigator.clipboard.writeText(value);
+    status.textContent="Copied successfully!";
+  }catch(error){
+    status.textContent="Clipboard unavailable. Select the text and copy manually.";
+  }
+}
+
+$("copyFormat").addEventListener("click",()=>copyText(
+  $("formatOutput").value,$("formatStatus")
+));
+$("clearFormat").addEventListener("click",()=>{
+  $("codeInput").value="";
+  $("formatOutput").value="";
+  $("formatStatus").textContent="Cleared. Ready for new code.";
+});
+
+// Responsive CSS templates.
+const templates={
+grid:`.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 800px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}`,
+flex:`.flex-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.flex-layout > * {
+  flex: 1 1 220px;
+  min-width: 0;
+}`,
+container:`.container {
+  width: min(100% - 2rem, 1100px);
+  margin-inline: auto;
+}`,
+text:`h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.1;
+}
+p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.7;
+}`,
+image:`img, picture, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}`
+};
+
+function generateCSS(){
+  $("responsiveOutput").value=templates[$("layoutType").value];
+  $("cssStatus").textContent="CSS generated. Copy it into your project.";
+}
+$("generateCSS").addEventListener("click",generateCSS);
+$("layoutType").addEventListener("change",generateCSS);
+$("copyCSS").addEventListener("click",()=>copyText(
+  $("responsiveOutput").value,$("cssStatus")
+));
+generateCSS();
+
+// Live code preview in a sandboxed iframe.
+$("runCode").addEventListener("click",()=>{
+  const html=$("playHTML").value;
+  const css=$("playCSS").value.replace(/<\/style/gi,"<\\/style");
+  const js=$("playJS").value.replace(/<\/script/gi,"<\\/script");
+
+  const page="<!doctype html><html><head><meta charset='utf-8'>"+
+    "<meta name='viewport' content='width=device-width,initial-scale=1'>"+
+    "<style>"+css+"</style></head><body>"+
+    html.replace(/<\/body/gi,"<\\/body")+
+    "<script>"+js+"<\/script></body></html>";
+
+  $("preview").srcdoc=page;
+});
+$("runCode").click();
+
+// JSON formatter and validator.
+$("validateJSON").addEventListener("click",()=>{
+  try{
+    const parsed=JSON.parse($("jsonInput").value);
+    $("jsonOutput").value=JSON.stringify(parsed,null,2);
+    $("jsonStatus").textContent="✓ Valid JSON. Formatting successful.";
+    $("jsonStatus").style.color="var(--green)";
+  }catch(error){
+    $("jsonOutput").value="";
+    $("jsonStatus").textContent="Invalid JSON: "+error.message;
+    $("jsonStatus").style.color="#ff899b";
+  }
+});
+
+$("copyJSON").addEventListener("click",()=>copyText(
+  $("jsonOutput").value,$("jsonStatus")
+));
+$("clearJSON").addEventListener("click",()=>{
+  $("jsonInput").value="";
+  $("jsonOutput").value="";
+  $("jsonStatus").textContent="Ready to validate JSON.";
+  $("jsonStatus").style.color="";
+});
+</script>
+</body>
+</html>
