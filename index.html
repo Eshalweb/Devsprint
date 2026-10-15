@@ -3,489 +3,757 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0b12">
-<meta name="description" content="DevSprint: free browser-based tools for web developers.">
+<meta name="theme-color" content="#09090f">
+<meta name="description" content="DevSprint - Free online developer tools for formatting code, counting text, testing HTML and CSS, and validating JSON.">
 <title>DevSprint — Developer Toolkit</title>
 
 <style>
-:root{
-  --bg:#0b0b12;
-  --panel:#13131f;
-  --panel2:#1b1b2b;
-  --border:#303047;
-  --text:#f5f3ff;
-  --muted:#a5a3bd;
-  --purple:#a78bfa;
-  --green:#79e7b4;
+:root {
+  --bg: #09090f;
+  --panel: #12121b;
+  --panel2: #181824;
+  --border: #29293b;
+  --text: #f4f4fb;
+  --muted: #a0a0b8;
+  --purple: #9b7bff;
+  --green: #52e0a0;
+  --orange: #ffb86b;
+  --blue: #71b7ff;
+  --red: #ff778d;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
-  line-height:1.6;
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  min-height: 100vh;
 }
-button,textarea,select{font:inherit}
-button{cursor:pointer}
-header{
-  position:sticky;top:0;z-index:10;
-  background:#0b0b12ed;border-bottom:1px solid var(--border);
-  backdrop-filter:blur(12px);
+
+button, textarea, select, input { font: inherit; }
+button { cursor: pointer; }
+
+button:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
 }
-nav{
-  max-width:1100px;margin:auto;padding:15px 20px;
-  display:flex;justify-content:space-between;align-items:center;
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(9,9,15,.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
 }
-.logo{font-size:24px;font-weight:850;letter-spacing:-1px}
-.logo span{color:var(--purple)}
-.badge{
-  color:var(--green);background:#13261e;border:1px solid #315943;
-  padding:5px 10px;border-radius:20px;font-size:11px;
+
+.nav {
+  max-width: 1150px;
+  margin: auto;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
 }
-main{width:min(1050px,92%);margin:auto}
-.hero{text-align:center;padding:60px 0 35px}
-.eyebrow{
-  display:inline-block;padding:5px 12px;border-radius:30px;
-  border:1px solid #40345e;color:#d4c6ff;background:#191329;
-  font-size:12px;
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
-h1{
-  font-size:clamp(38px,8vw,66px);line-height:1.1;
-  letter-spacing:-2px;margin:22px 0 15px;
+
+.logo span { color: var(--purple); }
+
+.nav-tag {
+  color: var(--muted);
+  font-size: 12px;
 }
-.gradient{
-  color:transparent;
-  background:linear-gradient(100deg,#c8b7ff,#9778ff,#7cdeff);
-  background-clip:text;
+
+main {
+  max-width: 1150px;
+  margin: auto;
+  padding: 38px 22px 70px;
 }
-.hero p{max-width:600px;margin:auto;color:var(--muted)}
-.stats{
-  display:flex;gap:9px;justify-content:center;flex-wrap:wrap;
-  margin-top:24px;
+
+.hero {
+  padding: 30px 0 35px;
 }
-.stat{
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:9px;padding:7px 12px;font-size:12px;
+
+.eyebrow {
+  display: inline-block;
+  border: 1px solid #47356f;
+  color: #c6b5ff;
+  background: #191329;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  margin-bottom: 17px;
 }
-.section-head{margin:30px 0 14px}
-.section-head h2{margin:0;font-size:22px}
-.section-head p{color:var(--muted);font-size:13px;margin:3px 0}
-.tools{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+
+h1 {
+  font-size: clamp(35px, 6vw, 60px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin: 0 0 16px;
 }
-.tool{
-  color:var(--text);text-align:left;background:var(--panel);
-  border:1px solid var(--border);border-radius:14px;padding:15px 12px;
-  transition:.2s;
+
+.gradient {
+  background: linear-gradient(90deg, #b59aff, #75c9ff);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
-.tool:hover,.tool.active{
-  border-color:var(--purple);background:#1b172b;transform:translateY(-2px);
+
+.hero p {
+  color: var(--muted);
+  max-width: 620px;
+  line-height: 1.8;
+  margin: 0;
 }
-.tool-icon{
-  display:grid;place-items:center;width:40px;height:40px;
-  border-radius:11px;background:#2a2142;font-size:20px;margin-bottom:11px;
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
 }
-.tool strong{display:block;font-size:13px}
-.tool small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.workspace{
-  margin:22px 0 45px;border:1px solid var(--border);
-  border-radius:15px;background:var(--panel);overflow:hidden;
+
+.section-title h2 { font-size: 20px; margin: 0; }
+
+.section-title span {
+  font-size: 12px;
+  color: var(--muted);
 }
-.workspace-head{
-  padding:15px 17px;display:flex;align-items:center;
-  justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-.workspace-head h2{font-size:18px;margin:0}
-.workspace-head p{font-size:12px;color:var(--muted);margin:3px 0 0}
-.workspace-body{padding:17px}
-label{display:block;font-size:12px;color:#ded9f0;margin:12px 0 7px}
-textarea,select{
-  width:100%;color:var(--text);background:#0a0a12;
-  border:1px solid var(--border);border-radius:9px;padding:12px;
+
+.tool-card {
+  text-align: left;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 23px;
+  min-height: 155px;
+  transition: .2s;
+  width: 100%;
 }
-textarea{
-  min-height:160px;resize:vertical;
-  font:13px/1.6 ui-monospace,Consolas,monospace;
-  tab-size:2;
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--purple);
+  background: #171522;
 }
-select{margin-bottom:7px}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.btn{
-  padding:9px 13px;border:1px solid var(--border);
-  border-radius:8px;background:var(--panel2);color:var(--text);
-  font-size:12px;font-weight:650;
+
+.tool-icon {
+  width: 43px;
+  height: 43px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  margin-bottom: 15px;
 }
-.btn.primary{background:var(--purple);color:#170e2b;border-color:var(--purple)}
-.btn:hover{filter:brightness(1.12)}
-.help{font-size:11px;color:var(--muted)}
-.preview{
-  width:100%;height:280px;background:white;
-  border:1px solid var(--border);border-radius:9px;
+
+.purple { background: #2b2045; color: #c3aaff; }
+.green { background: #15372b; color: var(--green); }
+.blue { background: #172d45; color: var(--blue); }
+.orange { background: #402a1c; color: var(--orange); }
+
+.tool-card h3 { margin: 0 0 7px; font-size: 17px; }
+.tool-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+#workspace { display: none; }
+#workspace.visible { display: block; }
+
+.back-btn, .secondary-btn, .primary-btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 15px;
+  color: var(--text);
+  background: var(--panel2);
 }
-.hidden{display:none!important}
-footer{
-  border-top:1px solid var(--border);padding:24px 15px;
-  text-align:center;color:var(--muted);font-size:12px;
+
+.back-btn { margin: 0 0 17px; }
+
+.primary-btn {
+  background: #7955df;
+  border-color: #7955df;
+  font-weight: 700;
 }
-footer strong{color:var(--purple)}
-@media(max-width:700px){
-  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero{padding-top:42px}
-  .workspace-body{padding:12px}
-  h1{letter-spacing:-1px}
+
+.primary-btn:hover { background: #8c6aef; }
+
+.secondary-btn:hover, .back-btn:hover { border-color: var(--purple); }
+
+.tool-panel {
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 23px;
+  border-radius: 18px;
 }
-@media(max-width:350px){
-  .logo{font-size:20px}
-  .tool{padding:11px 9px}
+
+.tool-panel.active { display: block; }
+
+.panel-heading { margin: 0 0 8px; font-size: 23px; }
+
+.panel-description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+label {
+  display: block;
+  color: #d6d6e6;
+  font-size: 13px;
+  margin: 13px 0 8px;
+}
+
+textarea, select, input {
+  width: 100%;
+  background: #09090f;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 13px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 160px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+select { margin-bottom: 13px; }
+textarea::placeholder { color: #66667e; }
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.button-row button { flex: 1 1 120px; }
+
+.status {
+  min-height: 22px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 13px;
+  overflow-wrap: anywhere;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.editor-grid textarea { min-height: 180px; }
+
+.preview {
+  display: block;
+  width: 100%;
+  height: 300px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.stat {
+  background: #09090f;
+  border: 1px solid var(--border);
+  padding: 17px 9px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  overflow-wrap: anywhere;
+}
+
+.stat span { color: var(--muted); font-size: 11px; }
+
+footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 25px 16px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  main { padding: 24px 15px 45px; }
+  .nav { padding: 14px 15px; }
+  .nav-tag { font-size: 10px; }
+  .hero { padding-top: 22px; }
+  h1 { letter-spacing: -1.3px; }
+  .tools-grid, .editor-grid { grid-template-columns: 1fr; }
+  .tool-card { min-height: 135px; padding: 19px; }
+  .tool-panel { padding: 16px; }
+  .stats-grid { gap: 6px; }
+  .stat { padding: 13px 5px; }
+  .stat strong { font-size: 21px; }
+  .stat span { font-size: 10px; }
 }
 </style>
 </head>
 
 <body>
 <header>
-  <nav>
-    <div class="logo">Dev<span>Sprint</span>.</div>
-    <span class="badge">● FREE TOOLKIT</span>
-  </nav>
+  <div class="nav">
+    <div class="logo">Dev<span>Sprint</span></div>
+    <div class="nav-tag">FREE DEVELOPER TOOLKIT</div>
+  </div>
 </header>
 
 <main>
-  <section class="hero">
-    <span class="eyebrow">✦ YOUR DEVELOPER WORKSPACE</span>
-    <h1>Less busywork.<br><span class="gradient">More building.</span></h1>
-    <p>Simple tools for everyday development. Format code, create responsive CSS, test your projects and validate JSON — all in one place.</p>
-    <div class="stats">
-      <span class="stat">✦ 4 Developer Tools</span>
-      <span class="stat">⚡ Instant Results</span>
-      <span class="stat">◈ Free to Use</span>
+  <section id="home">
+    <div class="hero">
+      <span class="eyebrow">✦ YOUR WORKSPACE, SIMPLIFIED</span>
+      <h1>Build faster.<br><span class="gradient">Ship smarter.</span></h1>
+      <p>Useful developer tools in one place. Format your code, count your text, preview your HTML and CSS, and validate JSON — all free in your browser.</p>
+    </div>
+
+    <div class="section-title">
+      <h2>Explore tools</h2>
+      <span>4 FREE TOOLS</span>
+    </div>
+
+    <div class="tools-grid">
+      <button class="tool-card" onclick="openTool('formatter')">
+        <div class="tool-icon purple">⌘</div>
+        <h3>Code Formatter</h3>
+        <p>Format JavaScript, JSON, HTML and CSS with line numbers.</p>
+      </button>
+
+      <button class="tool-card" onclick="openTool('counter')">
+        <div class="tool-icon blue">Aa</div>
+        <h3>Text Counter</h3>
+        <p>Count characters, words, lines and characters without spaces.</p>
+      </button>
+
+      <button class="tool-card" onclick="openTool('playground')">
+        <div class="tool-icon green">▷</div>
+        <h3>Live Playground</h3>
+        <p>Write HTML and CSS and preview the result instantly.</p>
+      </button>
+
+      <button class="tool-card" onclick="openTool('json')">
+        <div class="tool-icon orange">{ }</div>
+        <h3>JSON Validator</h3>
+        <p>Validate JSON, find errors and beautify your data.</p>
+      </button>
     </div>
   </section>
 
-  <section class="section-head">
-    <h2>Your workspace</h2>
-    <p>Choose a tool and get started.</p>
-  </section>
+  <section id="workspace">
+    <button class="back-btn" onclick="goHome()">← Back to tools</button>
 
-  <section class="tools">
-    <button class="tool active" data-tool="formatter">
-      <span class="tool-icon">⌘</span>
-      <strong>Code Formatter</strong>
-      <small>Format HTML, CSS and JavaScript</small>
-    </button>
-    <button class="tool" data-tool="responsive">
-      <span class="tool-icon">▣</span>
-      <strong>Responsive Helper</strong>
-      <small>Generate mobile-friendly CSS</small>
-    </button>
-    <button class="tool" data-tool="playground">
-      <span class="tool-icon">▷</span>
-      <strong>Live Playground</strong>
-      <small>Write code and preview it</small>
-    </button>
-    <button class="tool" data-tool="json">
-      <span class="tool-icon">{ }</span>
-      <strong>JSON Validator</strong>
-      <small>Format JSON and find errors</small>
-    </button>
-  </section>
+    <div id="formatter" class="tool-panel">
+      <h2 class="panel-heading">Code Formatter</h2>
+      <p class="panel-description">Format your code and get numbered output lines. This is a lightweight formatter, not a full language parser.</p>
 
-  <section class="workspace">
-    <div class="workspace-head">
-      <div>
-        <h2 id="title">Code Formatter</h2>
-        <p id="subtitle">Make your code easier to read.</p>
+      <label for="lang">Choose language</label>
+      <select id="lang">
+        <option value="javascript">JavaScript</option>
+        <option value="json">JSON</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+      </select>
+
+      <label for="inputCode">Your code</label>
+      <textarea id="inputCode" spellcheck="false" placeholder="Paste your code here..."></textarea>
+
+      <div class="button-row">
+        <button class="primary-btn" onclick="formatCode()">Format code</button>
+        <button class="secondary-btn" onclick="copyOutput('outputCode','formatStatus')">Copy output</button>
+        <button class="secondary-btn" onclick="clearFormatter()">Clear</button>
       </div>
-      <span class="badge">READY</span>
+
+      <div id="formatStatus" class="status" aria-live="polite"></div>
+      <label for="outputCode">Formatted output (line numbers included)</label>
+      <textarea id="outputCode" readonly spellcheck="false" placeholder="Your formatted code will appear here..."></textarea>
     </div>
 
-    <div class="workspace-body">
+    <div id="counter" class="tool-panel">
+      <h2 class="panel-heading">Text Counter</h2>
+      <p class="panel-description">Type or paste text below. Your statistics update automatically.</p>
+      <label for="counterInput">Your text</label>
+      <textarea id="counterInput" placeholder="Start typing here..." oninput="doCounting()"></textarea>
 
-      <section id="formatterPanel">
-        <label for="language">Choose language</label>
-        <select id="language">
-          <option value="html">HTML</option>
-          <option value="css">CSS</option>
-          <option value="js">JavaScript</option>
-        </select>
-        <label for="codeInput">Paste your code</label>
-        <textarea id="codeInput" spellcheck="false" placeholder="Paste code here..."></textarea>
-        <div class="actions">
-          <button class="btn primary" id="formatBtn">Format Code</button>
-          <button class="btn" id="copyFormat">Copy Output</button>
-          <button class="btn" id="clearFormat">Clear</button>
-        </div>
-        <p id="formatStatus" class="help" aria-live="polite">Code is processed in your browser.</p>
-        <label for="formatOutput">Formatted result</label>
-        <textarea id="formatOutput" spellcheck="false" placeholder="Your result appears here..."></textarea>
-      </section>
+      <div class="stats-grid">
+        <div class="stat"><strong id="charCount">0</strong><span>Characters</span></div>
+        <div class="stat"><strong id="wordCount">0</strong><span>Words</span></div>
+        <div class="stat"><strong id="lineCount">0</strong><span>Lines</span></div>
+        <div class="stat"><strong id="noSpaceCount">0</strong><span>Without spaces</span></div>
+        <div class="stat"><strong id="paragraphCount">0</strong><span>Paragraphs</span></div>
+        <div class="stat"><strong id="readingTime">0 min</strong><span>Reading time</span></div>
+      </div>
 
-      <section id="responsivePanel" class="hidden">
-        <label for="layoutType">Choose a template</label>
-        <select id="layoutType">
-          <option value="grid">Responsive Card Grid</option>
-          <option value="flex">Flexible Layout</option>
-          <option value="container">Responsive Container</option>
-          <option value="text">Responsive Typography</option>
-          <option value="image">Responsive Images</option>
-        </select>
-        <label for="responsiveOutput">Generated CSS</label>
-        <textarea id="responsiveOutput" readonly spellcheck="false"></textarea>
-        <div class="actions">
-          <button class="btn primary" id="generateCSS">Generate CSS</button>
-          <button class="btn" id="copyCSS">Copy CSS</button>
-        </div>
-        <p id="cssStatus" class="help">Copy the CSS into your project.</p>
-      </section>
+      <div class="button-row">
+        <button class="secondary-btn" onclick="clearCounter()">Clear text</button>
+        <button class="secondary-btn" onclick="copyOutput('counterInput','counterStatus')">Copy text</button>
+      </div>
+      <div id="counterStatus" class="status" aria-live="polite"></div>
+    </div>
 
-      <section id="playgroundPanel" class="hidden">
-        <label for="playHTML">HTML</label>
-        <textarea id="playHTML" spellcheck="false"><h1>Hello, DevSprint!</h1>
-<p>Build something amazing.</p>
+    <div id="playground" class="tool-panel">
+      <h2 class="panel-heading">Live Playground</h2>
+      <p class="panel-description">Edit HTML and CSS, then press Run to update the preview. JavaScript execution is intentionally not included.</p>
+
+      <div class="editor-grid">
+        <div>
+          <label for="htmlCode">HTML</label>
+          <textarea id="htmlCode" spellcheck="false"><h1>Hello DevSprint!</h1>
+<p>Your live preview starts here.</p>
 <button>Click me</button></textarea>
-
-        <label for="playCSS">CSS</label>
-        <textarea id="playCSS" spellcheck="false">body {
+        </div>
+        <div>
+          <label for="cssCode">CSS</label>
+          <textarea id="cssCode" spellcheck="false">body {
   font-family: Arial, sans-serif;
   padding: 24px;
-  color: #242039;
+  color: #222;
 }
-h1 { color: #7254d8; }
+h1 {
+  color: #7955df;
+}
 button {
   padding: 10px 16px;
   border: 0;
   border-radius: 8px;
-  background: #7254d8;
+  background: #7955df;
   color: white;
 }</textarea>
-
-        <label for="playJS">JavaScript</label>
-        <textarea id="playJS" spellcheck="false">document.querySelector("button")
-  .addEventListener("click", () => {
-    alert("It works!");
-  });</textarea>
-
-        <div class="actions">
-          <button class="btn primary" id="runCode">▶ Run Preview</button>
         </div>
-        <p class="help">Preview runs in an isolated frame. Only test code you trust.</p>
-        <label>Live preview</label>
-        <iframe id="preview" class="preview" title="Code preview" sandbox="allow-scripts"></iframe>
-      </section>
+      </div>
 
-      <section id="jsonPanel" class="hidden">
-        <label for="jsonInput">Paste JSON</label>
-        <textarea id="jsonInput" spellcheck="false" placeholder='{"name":"DevSprint","free":true}'></textarea>
-        <div class="actions">
-          <button class="btn primary" id="validateJSON">Format &amp; Validate</button>
-          <button class="btn" id="copyJSON">Copy Result</button>
-          <button class="btn" id="clearJSON">Clear</button>
-        </div>
-        <p id="jsonStatus" class="help" aria-live="polite">Ready to validate JSON.</p>
-        <label for="jsonOutput">Formatted JSON</label>
-        <textarea id="jsonOutput" spellcheck="false" readonly placeholder="Your result appears here..."></textarea>
-      </section>
+      <div class="button-row">
+        <button class="primary-btn" onclick="runPlayground()">▶ Run preview</button>
+        <button class="secondary-btn" onclick="resetPlayground()">Reset example</button>
+      </div>
+      <div id="playStatus" class="status" aria-live="polite"></div>
+      <label>Preview</label>
+      <iframe id="playPreview" class="preview" title="HTML and CSS preview" sandbox=""></iframe>
+    </div>
 
+    <div id="json" class="tool-panel">
+      <h2 class="panel-heading">JSON Validator</h2>
+      <p class="panel-description">Check whether your JSON is valid, view formatted output, and copy the result.</p>
+
+      <label for="jsonInput">JSON input</label>
+      <textarea id="jsonInput" spellcheck="false" placeholder='{"name":"DevSprint","free":true}'></textarea>
+
+      <div class="button-row">
+        <button class="primary-btn" onclick="validateJSON()">Validate JSON</button>
+        <button class="secondary-btn" onclick="beautifyJSON()">Beautify</button>
+        <button class="secondary-btn" onclick="minifyJSON()">Minify</button>
+        <button class="secondary-btn" onclick="clearJSON()">Clear</button>
+      </div>
+
+      <div id="jsonStatus" class="status" aria-live="polite"></div>
+      <label for="jsonOutput">Output</label>
+      <textarea id="jsonOutput" readonly spellcheck="false" placeholder="Formatted JSON or validation result will appear here..."></textarea>
+      <button class="secondary-btn" style="width:100%;margin-top:10px" onclick="copyOutput('jsonOutput','jsonStatus')">Copy output</button>
     </div>
   </section>
 </main>
 
 <footer>
-  <strong>DevSprint.</strong> — Built for developers, one sprint at a time.
-  <p>Free browser-based tools · No account required</p>
+  <div>DevSprint © <span id="year"></span> · Free developer tools</div>
+  <div>Built for learning, creating and shipping better code.</div>
 </footer>
 
 <script>
+"use strict";
+
 const $ = id => document.getElementById(id);
 
-const details = {
-  formatter:["Code Formatter","Make your code easier to read."],
-  responsive:["Responsive Helper","Generate CSS for responsive layouts."],
-  playground:["Live Code Playground","Write code and preview your ideas."],
-  json:["JSON Validator","Format JSON and check for errors."]
-};
+function openTool(id) {
+  const panel = $(id);
+  if (!panel) return;
 
-document.querySelectorAll(".tool").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".tool").forEach(item =>
-      item.classList.remove("active")
-    );
-    button.classList.add("active");
-    const name = button.dataset.tool;
-    $("title").textContent = details[name][0];
-    $("subtitle").textContent = details[name][1];
+  $("home").style.display = "none";
+  $("workspace").classList.add("visible");
 
-    ["formatter","responsive","playground","json"].forEach(item => {
-      $(item+"Panel").classList.toggle("hidden",item!==name);
-    });
+  document.querySelectorAll(".tool-panel").forEach(section => {
+    section.classList.remove("active");
   });
-});
 
-// Basic formatter for common HTML and CSS code.
-function formatHTML(source) {
-  const tokens = source.match(/<!--[\s\S]*?-->|<![^>]*>|<\/?[^>]+>|[^<]+/g)||[];
-  const voidTags=/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
-  let depth=0;
-  const result=[];
+  panel.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 
-  tokens.forEach(token=>{
-    const t=token.trim();
-    if(!t)return;
-    if(/^<\//.test(t))depth=Math.max(0,depth-1);
-    result.push("  ".repeat(depth)+t);
-    const match=t.match(/^<([a-z][\w-]*)\b[^>]*>$/i);
-    if(match&&!/^<\//.test(t)&&!voidTags.test(match[1])&&
-       !/\/>$/.test(t)&&!t.includes("</"))depth++;
-  });
-  return result.join("\n");
+  if (id === "playground" && !$("playPreview").srcdoc) {
+    runPlayground();
+  }
 }
 
-function formatCSS(source) {
-  return source
-    .replace(/\s*\{\s*/g," {\n  ")
-    .replace(/\s*;\s*/g,";\n  ")
-    .replace(/\s*:\s*/g,": ")
-    .replace(/\s*\}\s*/g,"\n}\n")
+function goHome() {
+  $("workspace").classList.remove("visible");
+  $("home").style.display = "block";
+
+  document.querySelectorAll(".tool-panel").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function clearFormatter() {
+  $("inputCode").value = "";
+  $("outputCode").value = "";
+  $("formatStatus").textContent = "";
+}
+
+function addLineNumbers(code) {
+  if (!code) return "";
+  return code.split("\n")
+    .map((line, index) => String(index + 1).padStart(3, " ") + "  " + line)
+    .join("\n");
+}
+
+function formatCode() {
+  const lang = $("lang").value;
+  const input = $("inputCode").value;
+
+  if (!input.trim()) {
+    $("outputCode").value = "";
+    $("formatStatus").textContent = "Please paste some code first.";
+    return;
+  }
+
+  let output = "";
+
+  try {
+    if (lang === "json") {
+      output = JSON.stringify(JSON.parse(input), null, 2);
+    } else if (lang === "html") {
+      output = formatMarkup(input);
+    } else if (lang === "css") {
+      output = formatCSS(input);
+    } else {
+      output = formatJavaScript(input);
+    }
+
+    $("outputCode").value = addLineNumbers(output);
+    $("formatStatus").textContent = "✓ Formatting completed.";
+    $("formatStatus").style.color = "var(--green)";
+  } catch (error) {
+    $("outputCode").value = "";
+    $("formatStatus").textContent = "Could not format: " + error.message;
+    $("formatStatus").style.color = "var(--red)";
+  }
+}
+
+function formatMarkup(input) {
+  return input
+    .replace(/>\s*</g, ">\n<")
     .split("\n")
-    .map(line=>line.trim())
+    .map(line => line.trim())
     .filter(Boolean)
     .join("\n");
 }
 
-$("formatBtn").addEventListener("click",()=>{
-  const source=$("codeInput").value;
-  if(!source.trim()){
-    $("formatStatus").textContent="Please paste code first.";
+function formatCSS(input) {
+  let output = "";
+  let indent = 0;
+  let token = "";
+
+  for (const ch of input) {
+    if (ch === "{") {
+      output += token.trim() + " {\n";
+      indent++;
+      token = "";
+    } else if (ch === ";") {
+      if (token.trim()) {
+        output += "  ".repeat(indent) + token.trim() + ";\n";
+      }
+      token = "";
+    } else if (ch === "}") {
+      if (token.trim()) {
+        output += "  ".repeat(indent) + token.trim() + "\n";
+      }
+      indent = Math.max(0, indent - 1);
+      output += "  ".repeat(indent) + "}\n";
+      token = "";
+    } else {
+      token += ch;
+    }
+  }
+
+  if (token.trim()) output += "  ".repeat(indent) + token.trim() + "\n";
+  return output.trim();
+}
+
+function formatJavaScript(input) {
+  // Lightweight formatting for common JavaScript snippets.
+  // It is not a replacement for a full JavaScript parser.
+  return input
+    .replace(/\r\n/g, "\n")
+    .replace(/[ \t]*\{[ \t]*/g, " {\n")
+    .replace(/[ \t]*\}[ \t]*/g, "\n}\n")
+    .replace(/;[ \t]*/g, ";\n")
+    .split("\n")
+    .map(line => line.trim())
+    .filter((line, index, arr) => line !== "" || (index > 0 && arr[index - 1] !== ""))
+    .join("\n")
+    .trim();
+}
+
+async function copyOutput(id, statusId) {
+  const text = $(id).value;
+
+  if (!text) {
+    $(statusId).textContent = "Nothing to copy yet.";
     return;
   }
-  const lang=$("language").value;
-  let result=source.trimEnd();
-  if(lang==="html")result=formatHTML(source);
-  if(lang==="css")result=formatCSS(source);
-  if(lang==="js"){
-    result=source.split("\n").map(line=>line.trimEnd()).join("\n").trim();
-  }
-  $("formatOutput").value=result;
-  $("formatStatus").textContent=lang==="js"
-    ?"Whitespace cleaned; JavaScript syntax was not rewritten."
-    :"Basic formatting complete. Check the result before using it.";
-});
 
-async function copyText(value,status){
-  if(!value){
-    status.textContent="Nothing to copy yet.";
-    return;
-  }
-  try{
-    await navigator.clipboard.writeText(value);
-    status.textContent="Copied successfully!";
-  }catch(error){
-    status.textContent="Clipboard unavailable. Select the text and copy manually.";
+  try {
+    await navigator.clipboard.writeText(text);
+    $(statusId).textContent = "✓ Copied to clipboard.";
+    $(statusId).style.color = "var(--green)";
+  } catch (error) {
+    $(id).focus();
+    $(id).select();
+    $(statusId).textContent = "Select the text and use Copy from your browser menu.";
   }
 }
 
-$("copyFormat").addEventListener("click",()=>copyText(
-  $("formatOutput").value,$("formatStatus")
-));
-$("clearFormat").addEventListener("click",()=>{
-  $("codeInput").value="";
-  $("formatOutput").value="";
-  $("formatStatus").textContent="Cleared. Ready for new code.";
-});
+function doCounting() {
+  const text = $("counterInput").value;
 
-// Responsive CSS templates.
-const templates={
-grid:`.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  $("charCount").textContent = text.length;
+  $("noSpaceCount").textContent = text.replace(/\s/g, "").length;
+  $("wordCount").textContent = text.trim()
+    ? text.trim().split(/\s+/).length : 0;
+  $("lineCount").textContent = text ? text.split(/\r\n|\r|\n/).length : 0;
+
+  const paragraphs = text.trim()
+    ? text.trim().split(/\n\s*\n/).filter(Boolean).length : 0;
+  $("paragraphCount").textContent = paragraphs;
+
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  $("readingTime").textContent = words ? Math.max(1, Math.ceil(words / 200)) + " min" : "0 min";
 }
-@media (max-width: 800px) {
-  .card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+function clearCounter() {
+  $("counterInput").value = "";
+  doCounting();
+  $("counterStatus").textContent = "";
+}
+
+function runPlayground() {
+  const html = $("htmlCode").value;
+  const css = $("cssCode").value;
+
+  // Keep the preview isolated from the main DevSprint page.
+  const safeCSS = css.replace(/<\/style/gi, "<\\/style");
+  const srcdoc = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>${safeCSS}</style>
+</head>
+<body>${html.replace(/<\/body/gi, "<\\/body")}</body>
+</html>`;
+
+  $("playPreview").srcdoc = srcdoc;
+  $("playStatus").textContent = "✓ Preview updated.";
+  $("playStatus").style.color = "var(--green)";
+}
+
+function resetPlayground() {
+  $("htmlCode").value = `<h1>Hello DevSprint!</h1>
+<p>Your live preview starts here.</p>
+<button>Click me</button>`;
+
+  $("cssCode").value = `body {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  color: #222;
+}
+h1 { color: #7955df; }
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #7955df;
+  color: white;
+}`;
+
+  runPlayground();
+}
+
+function validateJSON() {
+  const input = $("jsonInput").value;
+
+  try {
+    JSON.parse(input);
+    $("jsonOutput").value = "Valid JSON ✓";
+    $("jsonStatus").textContent = "✓ Your JSON is valid.";
+    $("jsonStatus").style.color = "var(--green)";
+  } catch (error) {
+    $("jsonOutput").value = "";
+    $("jsonStatus").textContent = "Invalid JSON: " + error.message;
+    $("jsonStatus").style.color = "var(--red)";
   }
 }
-@media (max-width: 520px) {
-  .card-grid {
-    grid-template-columns: 1fr;
+
+function beautifyJSON() {
+  try {
+    const parsed = JSON.parse($("jsonInput").value);
+    $("jsonOutput").value = JSON.stringify(parsed, null, 2);
+    $("jsonStatus").textContent = "✓ JSON beautified successfully.";
+    $("jsonStatus").style.color = "var(--green)";
+  } catch (error) {
+    $("jsonOutput").value = "";
+    $("jsonStatus").textContent = "Invalid JSON: " + error.message;
+    $("jsonStatus").style.color = "var(--red)";
   }
-}`,
-flex:`.flex-layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
-.flex-layout > * {
-  flex: 1 1 220px;
-  min-width: 0;
-}`,
-container:`.container {
-  width: min(100% - 2rem, 1100px);
-  margin-inline: auto;
-}`,
-text:`h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1.1;
-}
-p {
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  line-height: 1.7;
-}`,
-image:`img, picture, video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}`
-};
 
-function generateCSS(){
-  $("responsiveOutput").value=templates[$("layoutType").value];
-  $("cssStatus").textContent="CSS generated. Copy it into your project.";
-}
-$("generateCSS").addEventListener("click",generateCSS);
-$("layoutType").addEventListener("change",generateCSS);
-$("copyCSS").addEventListener("click",()=>copyText(
-  $("responsiveOutput").value,$("cssStatus")
-));
-generateCSS();
-
-// Live code preview in a sandboxed iframe.
-$("runCode").addEventListener("click",()=>{
-  const html=$("playHTML").value;
-  const css=$("playCSS").value.replace(/<\/style/gi,"<\\/style");
-  const js=$("playJS").value.replace(/<\/script/gi,"<\\/script");
-
-  const page="<!doctype html><html><head><meta charset='utf-8'>"+
-    "<meta name='viewport' content='width=device-width,initial-scale=1'>"+
-    "<style>"+css+"</style></head><body>"+
-    html.replace(/<\/body/gi,"<\\/body")+
-    "<script>"+js+"<\/script></body></html>";
-
-  $("preview").srcdoc=page;
-});
-$("runCode").click();
-
-// JSON formatter and validator.
-$("validateJSON").addEventListener("click",()=>{
-  try{
-    const parsed=JSON.parse($("jsonInput").value);
-    $("jsonOutput").value=JSON.stringify(parsed,null,2);
-    $("jsonStatus").textContent="✓ Valid JSON. Formatting successful.";
-    $("jsonStatus").style.color="var(--green)";
-  }catch(error){
-    $("jsonOutput").value="";
-    $("jsonStatus").textContent="Invalid JSON: "+error.message;
-    $("jsonStatus").style.color="#ff899b";
+function minifyJSON() {
+  try {
+    const parsed = JSON.parse($("jsonInput").value);
+    $("jsonOutput").value = JSON.stringify(parsed);
+    $("jsonStatus").textContent = "✓ JSON minified successfully.";
+    $("jsonStatus").style.color = "var(--green)";
+  } catch (error) {
+    $("jsonOutput").value = "";
+    $("jsonStatus").textContent = "Invalid JSON: " + error.message;
+    $("jsonStatus").style.color = "var(--red)";
   }
-});
+}
 
-$("copyJSON").addEventListener("click",()=>copyText(
-  $("jsonOutput").value,$("jsonStatus")
-));
-$("clearJSON").addEventListener("click",()=>{
-  $("jsonInput").value="";
-  $("jsonOutput").value="";
-  $("jsonStatus").textContent="Ready to validate JSON.";
-  $("jsonStatus").style.color="";
-});
-</script>
-</body>
-</html>
+function clearJSON() {
+  $("jsonInput").value = "";
+  $("jsonOutput").value = "";
+  $("jsonSta
